@@ -26,12 +26,12 @@ jobs:
                 mkdir -p github
               fi  
               cd github
-              if [ ! -d "app-betgambler-frm5" ]; then
-                mkdir -p app-betgambler-frm5
+              if [ ! -d "app-betgambler-frm6" ]; then
+                mkdir -p app-betgambler-frm6
               fi
-              cd app-betgambler-frm5
-              rm -rf  betgambleregister.com
-              git clone -b production git@github.com:granaber/betgambleregister.com.git
-              cd betgambleregister.com
+              cd app-betgambler-frm6
+              rm -rf  frontregister_6
+              git clone -b production git@github.com:granaber/frontregister_6.git
+              cd frontregister_6
               docker compose up --build  --force-recreate  -d
               
