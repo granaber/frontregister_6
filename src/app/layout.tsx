@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Betgamble-Registros',
-  description: 'Bienvenido a BetGambler, la mejor plataforma de apuestas.',
+  description: 'Bienvenido a BetGambler , la mejor plataforma de apuestas.',
 }
 export default function RootLayout ({
   children,
