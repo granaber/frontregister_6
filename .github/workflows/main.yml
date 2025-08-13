@@ -1,0 +1,37 @@
+name: Deploy Portal pay for Betgambler Other client 5
+on:
+  push:
+     branches: [ production ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+        - uses: actions/checkout@v2
+          with:
+            submodules: true
+            fetch-depth: 0
+        - name: executing remote ssh commands using password
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.KEY }}
+            script: |
+              ssh-keygen -F github.com || ssh-keyscan github.com >> ~/.ssh/known_hosts
+              cd /home
+              if [ ! -d "github" ]; then
+                echo "Creating Directory GitHub"
+                mkdir -p github
+              fi  
+              cd github
+              if [ ! -d "app-betgambler-frm5" ]; then
+                mkdir -p app-betgambler-frm5
+              fi
+              cd app-betgambler-frm5
+              rm -rf  betgambleregister.com
+              git clone -b production git@github.com:granaber/betgambleregister.com.git
+              cd betgambleregister.com
+              docker compose up --build  --force-recreate  -d
+              
