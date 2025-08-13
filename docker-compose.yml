@@ -4,4 +4,4 @@ services:
     build: .
     restart: always
     ports:
-        - '4005:3000'
+        - '4006:3000'
