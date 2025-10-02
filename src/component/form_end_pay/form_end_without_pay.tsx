@@ -8,7 +8,7 @@ export default function FormEndNone ({ idu }: { idu: number }) {
     const { dataU } = useContext(Context)
 
     console.log({ dataU })
-    const [recordFront, setrecordFront] = useState<registerDataWithoutPay>({ status: "NOAPROBADO", code_user: -1, email_user: "@", name_user: "Generic", pwd_user: "xxxx", tel_user: "", code_bono: "NO TIENE" })
+    const [recordFront, setrecordFront] = useState<registerDataWithoutPay>({ status: "NOAPROBADO", code_user: -1, email_user: "@", name_user: "Generic", pwd_user: "xxxx", tel_user: "", code_bono: "NO TIENE", mnd: 1 })
     const callFunction = async () => {
 
         // fetch(`/api/register?itype=send_data_usertemp&idu=${dataU.id}`)
