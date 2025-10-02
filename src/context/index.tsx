@@ -11,7 +11,7 @@ interface contextDatauser {
 }
 
 const defautlContextDataUser = {
-    dataU: { id: -1, email_user: "", name_user: "", pwd_user: "", tel_user: "", code_user: 0, code_bono: "" },
+    dataU: { id: -1, email_user: "", name_user: "", pwd_user: "", tel_user: "", code_user: 0, code_bono: "", mnd: 1 },
     data_confirm: { idu: -1, code_confirm: '', name_confirm: undefined, bank_code: 0, bank_config: undefined, date_transac: undefined, monto: 0, formatpay: 1 },
     dataRegisterConf: {
         name_user: '',
@@ -20,7 +20,8 @@ const defautlContextDataUser = {
         tel_user: '',
         code_user: 0,
         code_bono: '',
-        id: - 1,
+        id: -1,
+        mnd: 1,
         status: 'ENESPERA' as statusConfirm
     },
     setRegister: () => { },
