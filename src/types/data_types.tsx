@@ -127,6 +127,7 @@ export type dataUser = {
     code_user: number,
     code_bono?: string
     id?: number
+    mnd: number
 }
 export type registerDataWithoutPay = dataUser & {
     status: statusConfirm
@@ -305,4 +306,11 @@ export const initListTransaccBonus: listTransaccionBonus = {
     transacc: NEWRECORD.toString(),
     ntran: NEWRECORD,
     type_transscc: NEWRECORD.toString()
+}
+export type countryAvalible = {
+    id: number
+    flag: string
+    name: string
+    code: string
+    mnd: number
 }

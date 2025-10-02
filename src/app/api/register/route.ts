@@ -369,13 +369,13 @@ async function SaveDataOtherPay ({ data }: { data: dataConfirmOtherPay }): Promi
 }
 
 export async function PostDataRecordForTemp ({ data }: { data: dataUser }): Promise<[number, number]> {
-  const { email_user, name_user, pwd_user, tel_user, code_bono } = data
+  const { email_user, name_user, pwd_user, tel_user, code_bono, mnd } = data
 
   const result = await SQLQuery('Select * from _transac_portal_tempdata where user=?', [name_user])
   if (result.length === 0) {
     const [id, state] = await SQLQueryInsert(
-      'Insert _transac_portal_tempdata  (user,pwd,email,tel,register_complet)  values (?,?,?,?,0)',
-      [name_user, pwd_user, email_user, tel_user]
+      'Insert _transac_portal_tempdata  (user,pwd,email,tel,register_complet,mnd)  values (?,?,?,?,0,?)',
+      [name_user, pwd_user, email_user, tel_user, mnd]
     )
     if (typeof code_bono !== 'undefined') {
       const idcode = await SetDataCodeBono({ code_bono, name_user, id_temp: id })
@@ -449,7 +449,8 @@ async function GetDataUserTemp ({ idu }: { idu: number }): Promise<registerDataW
       status: stateRegister ? 'APROBADO' : 'NOAPROBADO',
       tel_user: result[0].tel,
       code_bono: codeBono,
-      id: result[0].id
+      id: result[0].id,
+      mnd: 1
     }
   }
   return {
@@ -460,7 +461,7 @@ async function GetDataUserTemp ({ idu }: { idu: number }): Promise<registerDataW
     status: 'NOAPROBADO',
     tel_user: '',
     code_bono: '',
-    id: -1
+    id: -1, mnd: 1
   }
 }
 async function GetDataRecord ({ idu }: { idu: number }): Promise<dataSettingGeneral> {

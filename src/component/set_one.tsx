@@ -39,7 +39,7 @@ export default function SetOnePay ({ callNext }: { callNext: (e: keyTypeForm) =>
     }
     const handleNext = (e: React.SyntheticEvent) => {
         e.preventDefault()
-        fetch(`/api/list?type=checkuser&email_user=${dataU.email_user}&name_user=${dataU.name_user}&pwd_user=${dataU.pwd_user}&phone_user=${dataU.tel_user}&code_user=${dataU.code_user}&code_bono=${dataU.code_bono?.toUpperCase()}`)
+        fetch(`/api/list?type=checkuser&email_user=${dataU.email_user}&name_user=${dataU.name_user}&pwd_user=${dataU.pwd_user}&phone_user=${dataU.tel_user}&code_user=${dataU.code_user}&code_bono=${dataU.code_bono?.toUpperCase()}&mnd=${dataU.mnd}`)
             .then((res) => res.json())
             .then((data: respondeDataCheckUser) => {
 

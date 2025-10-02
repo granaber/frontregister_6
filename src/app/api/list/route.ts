@@ -13,13 +13,13 @@ import {
   listClientWithBono,
   listTransaccionBonus,
   listUserAvalible,
-  respondeDataCheckUser
+  respondeDataCheckUser, countryAvalible
 } from '@/types/data_types'
 import { isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js'
 import { CountryCode } from 'libphonenumber-js/types'
 import { handleCreateUserDefault, handleListCredit, PostDataRecordForTemp } from '../register/route'
 
-const [BANK, CHECKUSER, LISTPAY, LISTTRANSA, LISTBONOCLIENT, LISTBONO, LIST_USER, LIST_RECARGAS, LIST_RETIROS, LIST_TRANSACC_BONUS] = [
+const [BANK, CHECKUSER, LISTPAY, LISTTRANSA, LISTBONOCLIENT, LISTBONO, LIST_USER, LIST_RECARGAS, LIST_RETIROS, LIST_TRANSACC_BONUS, COUNTRY] = [
   'bank',
   'checkuser',
   'list_pay',
@@ -29,7 +29,8 @@ const [BANK, CHECKUSER, LISTPAY, LISTTRANSA, LISTBONOCLIENT, LISTBONO, LIST_USER
   'list_users',
   'list_recarga',
   'list_retiros',
-  'list_transacc_bonus'
+  'list_transacc_bonus',
+  'country'
 ]
 export async function GET (request: Request) {
   const { searchParams } = new URL(request.url)
@@ -37,6 +38,15 @@ export async function GET (request: Request) {
 
   if (typeof igetType === 'undefined' || igetType === '') {
     return NextResponse.json({})
+  }
+  if (igetType === COUNTRY) {
+    const data = await ListCountryMnd()
+    return NextResponse.json(data)
+  }
+
+  if (igetType === BANK) {
+    const data = await GetListBank()
+    return NextResponse.json(data)
   }
   if (igetType === BANK) {
     const data = await GetListBank()
@@ -49,6 +59,7 @@ export async function GET (request: Request) {
     const code_user = searchParams.get('code_user') || 0
     const code_bono = searchParams.get('code_bono') || ''
     const email_user = searchParams.get('email_user') || ''
+    const mnd = searchParams.get('mnd') || 1
 
 
     const data = await CheckNameUser({ name_user })
@@ -72,7 +83,8 @@ export async function GET (request: Request) {
       pwd_user,
       tel_user: phone_user,
       code_user: Number(code_user),
-      code_bono: undefined
+      code_bono: undefined,
+      mnd: Number(mnd)
     }
 
     const [idusu_temp] = await PostDataRecordForTemp({ data: datau })
@@ -315,7 +327,20 @@ async function LisTransaccBonos (page: number): Promise<listTransaccionBonus[]> 
   return data
 }
 
+async function ListCountryMnd (): Promise<countryAvalible[]> {
+  const result = await SQLQuery('select * from _transac_portal_countrys,sbmonedas  where _transac_portal_countrys.mnd=sbmonedas.id order by _transac_portal_countrys.ord', [])
+  return result.map((o: { id: number; name: string; code: string; flag: string; mnd: number, moneda: string, descripcion: string }) => {
+    const { id, name, flag, mnd, moneda, descripcion } = o
+    return {
+      id,
+      name,
+      code: `${moneda} ${descripcion}`,
+      flag,
+      mnd
+    }
+  })
 
+}
 export async function ListBonosClient (): Promise<listClientWithBono[]> {
   const result = await SQLQuery(
     'select _tbbono.*,_transac_portal_listbono.codigo,_tusu.Usuario from _tbbono,_transac_portal_listbono,_tusu where _transac_portal_listbono.codebono=_tbbono.codebono and _tbbono.IDC=_tusu.Asociado and _tusu.Tipo=3',
