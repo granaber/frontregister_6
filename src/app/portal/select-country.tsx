@@ -16,10 +16,10 @@ export default function SelectCountry ({ getBtn }: { getBtn: (e: string, mnd: nu
     return (
         <div className='w-full h-[42em] flex flex-col  items-center  z-10 absolute  bg-slate-600/50 backdrop-blur-sm  rounded-lg p-5'>
             <h1 className='text-2xl font-bold text-gray-700'>Selecciona tu país</h1>
-            <div className='w-full md:h-5/6 h-full overflow-y-auto flex md:flex-row flex-col justify-center items-center gap-2 md:gap-14 px-5'>
+            <div className='w-full md:h-5/6 h-full overflow-y-auto grid grid-cols-2 md:grid-cols-4 px-5 gap-x-10  mt-10 mb-10 justify-items-center'>
                 {dataCountry.map((e, i) => (
 
-                    <div key={`keyimga-${e.id}`} className="md:h-100  bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+                    <div key={`keyimga-${e.id}`} className="w-32 h-40 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                         <div className='md:h-20 h-10 flex justify-center items-center mt-5 md:mt-0'>
                             <span className={`fi ${e.flag}  text-4xl  md:text-7xl`} ></span>
                         </div>
@@ -29,10 +29,10 @@ export default function SelectCountry ({ getBtn }: { getBtn: (e: string, mnd: nu
                             </div>
                             <div className="flex items-center   flex-col  mt-2.5 mb-5">
 
-                                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ">{e.code}</span>
+                                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800  h-10 w-20 text-center">{e.code}</span>
                             </div>
-                            <div className="flex items-center justify-between">
-                                <a href="#" onClick={() => getBtn('hidden', e.mnd, e.flag)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Seleccionar</a>
+                            <div className="flex items-center justify-between md:h-5 h-3">
+                                <a href="#" onClick={() => getBtn('hidden', e.mnd, e.flag)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300   font-medium rounded-lg text-xs px-2 py-2  text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Seleccionar</a>
                             </div>
                         </div>
                     </div>
